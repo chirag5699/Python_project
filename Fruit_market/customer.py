@@ -1,5 +1,9 @@
 from manger import *
 import datetime
+import mysql.connector
+global name
+global Bill_num
+global total_amount
 def customer_reole():  # function defination
     while True : #user while loop
         print(store)
@@ -67,4 +71,14 @@ def Customer_bill():
             total_amount+=pr
     print("------------------------------------\n")
     print(f"Total Amount\t\t{total_amount}\n")
-    print("------------------------------------\n")                    
+    print("------------------------------------\n")
+    mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="fruit_market"
+)                    
+    mycursor = mydb.cursor()
+    query=f"""insert into customer value("{name}",{Bill_num},{total_amount})"""
+    mycursor.execute(query)
+    mydb.commit()
