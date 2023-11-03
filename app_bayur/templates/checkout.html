@@ -1,0 +1,219 @@
+{% extends '2hedder_futter.html' %}
+{% block content %}   
+ {% load static %}
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+      <div
+        class="d-flex flex-column align-items-center justify-content-center"
+        style="min-height: 300px"
+      >
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Checkout</h1>
+        <div class="d-inline-flex">
+          <p class="m-0"><a href="">Home</a></p>
+          <p class="m-0 px-2">-</p>
+          <p class="m-0">Checkout</p>
+        </div>
+      </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Checkout Start -->
+   
+    <div class="container-fluid pt-5">
+      <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <p>{{msg}}</p>
+          <form action="{% url 'checkoutdetail' %}" method="post">
+            {% csrf_token %}
+          <div class="mb-4">
+            <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label>First Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="fname"
+                placeholder="name" required 
+                />
+              </div>
+              <div class="col-md-6 form-group">
+                <label>Last Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="lname"
+                  placeholder="lname" required
+                />
+              </div>
+              <div class="col-md-6 form-group">
+                <label>E-mail</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="email"
+                  placeholder="example@email.com"  required
+                />
+              </div>
+              <div class="col-md-6 form-group">
+                <label>Mobile No</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="mobile"
+                  placeholder="+9100000000" required
+                />
+              </div>
+              <div class="col-md-6 form-group">
+                <label>Address Line 1</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="address1"
+                  placeholder="123 Street" required
+                />
+              </div>
+              <div class="col-md-6 form-group">
+                <label>Address Line 2</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="address2"
+                  placeholder="123 Street"
+                />
+              </div>
+              <div class="col-md-6 form-group">
+                <label>City</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="city"
+                  placeholder="New York"
+                />
+              </div>
+
+            <div class="col-md-6 form-group">
+                <label>State</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="State"
+                  placeholder="New York"
+                />
+              </div> 
+              <div class="col-md-6 form-group">
+
+                <label>Country</label>
+                <select name="Country" class="custom-select" required >
+                  <option selected>INDIA</option>
+                  <option>USA</option>
+                  <option>CANADA</option>
+                  <option>Australiya</option>
+                </select>
+              </div>
+             <div class="col-md-6 form-group">
+                <label>ZIP Code</label>
+                <input class="form-control" name="ZIPCode" type="text" placeholder="123" />
+              </div>
+              <div class="col-md-12 form-group">
+                <div class="custom-control custom-checkbox">
+                  <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="newaccount"
+                  />
+                  <label class="custom-control-label" for="newaccount"
+                  >Create an account</label
+                  >
+                </div>
+              </div>
+              <div class="col-md-12 form-group">
+                <div class="custom-control custom-checkbox">
+                  <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="shipto"
+                  />
+                  <label
+                  class="custom-control-label"
+                  for="shipto"
+                  data-toggle="collapse"
+                  data-target="#shipping-address"
+                  >Ship to different address</label
+                  >
+                </div>
+              </div>
+            </div>
+            <input class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" type="submit" value="submit" >
+          </div>
+        </form>
+        {% comment %} <div class="container-fluid pt-"> {% endcomment %}
+          {% comment %} <div class="row px-xl-6">
+            <div class="col-lg-6">
+              <div class="mb-5">
+                
+                <!-- Table start -->
+                
+                <table class="table">
+                  <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">immage</th>
+                          <th scope="col">Productname</th>
+                          <th scope="col">quntity</th>
+                        
+                        </tr>
+                        {%  for i in all_cart %}
+                              
+                        <tr>
+                             
+                            <td><img src="{{i.Product_id.Listing_immage.url}}" alt="" height="50px" width="50px"></td> 
+                             <td>{{i.Product_id.P_name}}</td>
+                             <td>{{i.Quntity}}</td>
+                     
+                          {% endfor %}
+                      </thead>
+                      <tbody>
+                      </table>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="mb-5">
+    
+                <table class="table">
+                  <thead class="thead-dark" >
+                        <tr>
+                          <th scope="col"> your mobile No</th>
+                          <th scope="col"> your address</th>
+                        </tr>      
+                        <tr> 
+                             <td>{{one_data.mobile_no}}</td>
+                             <td>{{one_data.address1}}<br>{{one_data.address2}}<br>{{one_data.city}},{{one_data.State}},{{one_data.Country}},{{one_data.ZIPCode}}</td>   
+                           </tr>
+                      </thead>
+                      <tbody>
+                      </table>
+                      </div>
+                    </div>
+                    </div>
+                    </div>                   
+      </div> {% endcomment %}
+
+
+                      {% comment %} <a href="{% url 'payment' %}">
+                        <input class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" type="button" value=" Place Order" name=" Place Order" 
+                       ></a>
+                    </div>  {% endcomment %}
+                </div>
+               <div>     
+                              
+                      {% comment %} </div>
+                      <a href="{% url 'payment' %}">
+                        <input class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" type="button" value=" Place Order" name=" Place Order" 
+                       ></a>
+                  </div>   
+         {% endcomment %}
+      
+  {% endblock %}
+
+
+ 
